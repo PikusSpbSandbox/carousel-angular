@@ -99,7 +99,7 @@ export class Cells {
                     img: this.getImage(i)!['image']
                 });
             }
-        };
+        }
     }
 
     ifSequenceOfCellsIsChanged() {

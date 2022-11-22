@@ -31,7 +31,7 @@ export class CarouselComponent implements OnDestroy {
     _isCounter: boolean = false;
     _width!: number;
     _cellWidth: number | '100%' = 200;
-    _loop: boolean = false;
+    _loop: boolean = true;
     _lightDOM: boolean = false;
     isMoving: boolean = false;
     isNgContent: boolean = false;
@@ -110,9 +110,9 @@ export class CarouselComponent implements OnDestroy {
     @Output() events: EventEmitter < any > = new EventEmitter < any > ();
 
     @Input() id!: number;
-    @Input() height: number = 200;
+    @Input() height: number = 450;
     @Input() width!: number;
-    @Input() autoplay: boolean = false;
+    @Input() autoplay: boolean = true;
     @Input() autoplayInterval: number = 5000;
     @Input() pauseOnHover: boolean = true;
     @Input() dots: boolean = false;
@@ -126,7 +126,7 @@ export class CarouselComponent implements OnDestroy {
     @Input() counterSeparator: string = " / ";
     @Input() overflowCellsLimit: number = 3;
     @Input() listeners: 'auto' | 'mouse and touch' = 'mouse and touch';
-    @Input() cellsToShow!: number;
+    @Input() cellsToShow: number = 1;
     @Input() cellsToScroll: number = 1;
     @Input() freeScroll: boolean = false;
     @Input() arrows: boolean = true;
@@ -161,7 +161,7 @@ export class CarouselComponent implements OnDestroy {
 
     get loop() {
         if (this.images) {
-            return this._loop;
+        return this._loop;
         } else {
             return false;
         }
@@ -175,7 +175,7 @@ export class CarouselComponent implements OnDestroy {
 
     get lightDOM() {
         if (this.images) {
-            return this._lightDOM;
+        return this._lightDOM;
         } else {
             return false;
         }
@@ -192,7 +192,7 @@ export class CarouselComponent implements OnDestroy {
         }
     }
 
-    @HostListener('mousemove', ['$event'])
+    @HostListener('mouseenter', ['$event'])
     onMousemove(event: MouseEvent) {
         if (this.autoplay && this.pauseOnHover) {
             this.carousel.stopAutoplay();
@@ -286,7 +286,7 @@ export class CarouselComponent implements OnDestroy {
         this.container = new Container(this.carouselProperties, this.utils, this.cells);
         this.slide = new Slide(this.carouselProperties, this.utils, this.cells, this.container);
         this.carousel = new Carousel(this.carouselProperties, this.utils, this.cells, this.container, this.slide);
-    
+
         if (this.autoplay) {
             this.carousel.autoplay();
         }
