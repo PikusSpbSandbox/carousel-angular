@@ -1,4 +1,4 @@
-import { Component, ViewChildren } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
 	selector: 'app-root',
@@ -18,7 +18,7 @@ export class AppComponent {
         {path: '/assets/photo-1524324463413-57e3d8392df1.jpg'},
         {path: '/assets/photo-1506086679524-493c64fdfaa6.jpg'},
         {path: '/assets/photo-1569749450723-1836b067fb64.jpg'}
-    ];   
+    ];
 
     imagesForSlider = [
         {path: '/assets/photo-1444065707204-12decac917e8.jfif'},
