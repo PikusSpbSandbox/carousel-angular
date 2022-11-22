@@ -1,9 +1,10 @@
 # Simple Angular carousel component
+<img src="https://badgen.net/bundlephobia/min/carousel-angular" />
 
-### Demo
+## Demo
 Live [demo](https://pikus.spb.ru/code/carousel-angular-demo).
 
-### About
+## About
 This is a fork version of [ivylaboratory/angular-carousel](https://github.com/ivylaboratory/angular-carousel) with some changed styles and 
 defaults both with some minor bugfixes.
 
@@ -34,5 +35,5 @@ Put the contents of your cells in containers with the `carousel-cell` class.
 </carousel>
 ```
 
-### Credits
+## Credits
 Please see `angular-carousel` author's page respectively: [drozhzhin-n-e](https://github.com/drozhzhin-n-e) 
