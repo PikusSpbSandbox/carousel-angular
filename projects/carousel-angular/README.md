@@ -1,14 +1,10 @@
-# Carousel for Angular
-
-<img src="https://badgen.net/bundlephobia/min/carousel-angular" />
-
 # Simple Angular carousel component
 
 ### Demo
 Live [demo](https://pikus.spb.ru/code).
 
 ### About
-This is a fork version of [ivylaboratory/angular-carousel](https://github.com/ivylaboratory/angular-carousel) with some changed styles and
+This is a fork version of [ivylaboratory/angular-carousel](https://github.com/ivylaboratory/angular-carousel) with some changed styles and 
 defaults both with some minor bugfixes.
 
 ## Installation
