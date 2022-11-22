@@ -1,7 +1,7 @@
 # Simple Angular carousel component
 
 ### Demo
-Live [demo](https://pikus.spb.ru/code).
+Live [demo](https://pikus.spb.ru/code/carousel-angular-demo).
 
 ### About
 This is a fork version of [ivylaboratory/angular-carousel](https://github.com/ivylaboratory/angular-carousel) with some changed styles and 
