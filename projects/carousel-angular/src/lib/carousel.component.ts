@@ -31,7 +31,7 @@ export class CarouselComponent implements OnDestroy {
     _isCounter: boolean = false;
     _width!: number;
     _cellWidth: number | '100%' = 200;
-    _loop: boolean = true;
+    _loop: boolean = false;
     _lightDOM: boolean = false;
     isMoving: boolean = false;
     isNgContent: boolean = false;
@@ -161,7 +161,7 @@ export class CarouselComponent implements OnDestroy {
 
     get loop() {
         if (this.images) {
-        return this._loop;
+      return this._loop;
         } else {
             return false;
         }
@@ -169,13 +169,13 @@ export class CarouselComponent implements OnDestroy {
 
     @Input('lightDOM') set lightDOM(value: boolean) {
         if (value) {
-            this._lightDOM = value;
+      this._lightDOM = value;
         }
     }
 
     get lightDOM() {
         if (this.images) {
-        return this._lightDOM;
+            return this._lightDOM;
         } else {
             return false;
         }
@@ -192,15 +192,15 @@ export class CarouselComponent implements OnDestroy {
         }
     }
 
-    @HostListener('mouseenter', ['$event'])
-    onMousemove(event: MouseEvent) {
+    @HostListener('mouseover', ['$event'])
+    onMouseOver(event: MouseEvent) {
         if (this.autoplay && this.pauseOnHover) {
             this.carousel.stopAutoplay();
         }
     }
 
-    @HostListener('mouseleave', ['$event'])
-    onMouseleave(event: MouseEvent) {
+    @HostListener('mouseout', ['$event'])
+    onMouseOut(event: MouseEvent) {
         if (this.autoplay && this.pauseOnHover) {
             this.carousel.autoplay();
         }

@@ -1,8 +1,8 @@
 import {Properties as CarouselProperties} from './interfaces';
 
 export class Container {
-    /* The index of the new position relative to 
-     * the active index, for example -1 or +1 
+    /* The index of the new position relative to
+     * the active index, for example -1 or +1
      */
     newPositionIndex: number = 0;
     isPositionCorrection: boolean = false;

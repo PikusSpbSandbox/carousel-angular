@@ -240,7 +240,7 @@ export class Slide {
         let correction = 0;
         let isLastSlide = this.isLastSlide(counter);
 
-        if (this.carouselProperties.loop || this.direction === "right") {
+        if (this.carouselProperties.loop) {
             return 0;
         }
 
