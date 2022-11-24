@@ -61,6 +61,10 @@ export class Carousel {
         return this.properties.images;
     }
 
+    get autoplayIsPossible() {
+        return this.properties.autoplayIsPossible;
+    }
+
     get margin() {
         return this.properties.margin;
     }
@@ -166,7 +170,9 @@ export class Carousel {
 
     autoplay() {
         this.autoplayId = setInterval(() => {
+          if (this.autoplayIsPossible) {
             this.next();
+          }
         }, this.properties.autoplayInterval);
     }
 

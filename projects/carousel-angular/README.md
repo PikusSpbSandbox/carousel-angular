@@ -5,8 +5,14 @@
 Live [demo](https://pikus.spb.ru/code/carousel-angular-demo).
 
 ## About
-This is a fork version of [ivylaboratory/angular-carousel](https://github.com/ivylaboratory/angular-carousel) with some changed styles and 
-defaults both with some minor bugfixes.
+This is a fork version of [ivylaboratory/angular-carousel](https://github.com/ivylaboratory/angular-carousel) with the following changes:
+- Navigation arrows transparent design
+- Bug fixes:
+  - Fix scrolling to previous item scrolled to start only
+  - Fix when drag & drop event starts on inner content (drag & drop is now blocked)
+  - Fix autoplay stop when hovering carousel
+- Changed default settings
+- Dependency versions upgrade to fit Angular 14
 
 ## Installation
 Install the npm package.

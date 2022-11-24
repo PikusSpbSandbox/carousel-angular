@@ -6,6 +6,7 @@ export interface Properties {
     cellWidth: number;
     loop: boolean;
     autoplayInterval: number;
+    autoplayIsPossible: boolean;
     overflowCellsLimit: number;
     visibleWidth: number;
     margin: number;
@@ -19,16 +20,16 @@ export interface Properties {
 }
 
 export interface Images {
-    [index: number]: { 
-    	path: string; 
-    	width?: number; 
+    [index: number]: {
+    	path: string;
+    	width?: number;
     	height?: number;
     	//type?: 'image' | 'video'
     };
 }
 
 export interface Image {
-    path: string; 
-    width?: number; 
+    path: string;
+    width?: number;
     height?: number;
 }

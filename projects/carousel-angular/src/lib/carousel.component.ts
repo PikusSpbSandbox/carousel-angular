@@ -193,16 +193,18 @@ export class CarouselComponent implements OnDestroy {
     }
 
     @HostListener('mouseover', ['$event'])
-    onMouseOver(event: MouseEvent) {
+    onMouseOver() {
         if (this.autoplay && this.pauseOnHover) {
-            this.carousel.stopAutoplay();
+          this.carouselProperties.autoplayIsPossible = false;
+          this.carousel.stopAutoplay();
         }
     }
 
     @HostListener('mouseout', ['$event'])
-    onMouseOut(event: MouseEvent) {
+    onMouseOut() {
         if (this.autoplay && this.pauseOnHover) {
-            this.carousel.autoplay();
+          this.carouselProperties.autoplayIsPossible = true;
+          this.carousel.autoplay();
         }
     }
 
@@ -274,6 +276,7 @@ export class CarouselComponent implements OnDestroy {
             cellWidth: this.getCellWidth(),
             loop: this.loop,
             autoplayInterval: this.autoplayInterval,
+            autoplayIsPossible: true,
             overflowCellsLimit: this.overflowCellsLimit,
             visibleWidth: this.width,
             margin: this.margin,
