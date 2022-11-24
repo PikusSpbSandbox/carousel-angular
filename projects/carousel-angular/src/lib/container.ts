@@ -282,11 +282,6 @@ export class Container {
                 return endPosition;
             }
         }
-        if (direction === 'right') {
-            if (newPositionX > 0) {
-                return 0;
-            }
-        }
 
         return newPositionX;
     }

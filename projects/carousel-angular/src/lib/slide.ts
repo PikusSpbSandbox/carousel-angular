@@ -260,16 +260,6 @@ export class Slide {
     }
 
     getSlideLength(distanceAbs: number) {
-        let isLastSlide = this.isLastSlide(this.counter);
-
-        /* If the last cell does not fit entirely, then the
-         * length of the swipe to the left, from the extreme
-         * right position, may be shorter than usual.
-         */
-        if (isLastSlide && this.direction === "right") {
-            distanceAbs = distanceAbs + this.visibleWidth % this.fullCellWidth;
-        }
-
         let length = Math.floor(distanceAbs / this.fullCellWidth);
 
         if (distanceAbs % this.fullCellWidth >= this.minSwipeDistance) {

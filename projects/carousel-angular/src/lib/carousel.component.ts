@@ -206,6 +206,11 @@ export class CarouselComponent implements OnDestroy {
         }
     }
 
+    @HostListener('dragstart', ['$event'])
+    onDragStart() {
+       return false;
+    }
+
     constructor(
         private elementRef: ElementRef,
         private ref: ChangeDetectorRef) {

@@ -64,30 +64,36 @@
           z-index: 1
 
   .carousel-arrow
-    height: 80px
-    width: 23px
-    margin-top: -40px
+    width: 20px
+    height: 20px
+    margin-top: -10px
     transition: opacity 0.1s ease-in-out
     opacity: 0
-    background-repeat: no-repeat
-    background-size: 31px
-    background-position: center
-    border-radius: 10px
     position: absolute
     top: 50%
     z-index: 10
     cursor: pointer
+    border: solid rgba(255, 255, 255, 0.6)
+    border-width: 0 4px 4px 0
+    border-radius: 2px
+    display: inline-block
+  .carousel-arrow:before // adding dom element to extend area of catching mouse events
+    position: absolute
+    content: ' '
+    display: inline-block
+    width: 100px
+    height: 100px
+    left: -50px
+    top: -50px
+    border: 0
   .carousel-arrow:hover
     opacity: 0.5
-  .carousel-arrow-prev, .carousel-arrow-next
-    background-color: rgba(255, 255, 255, 0.1)
-    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1)
   .carousel-arrow-prev
-    left: 20px
-    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjI0Ij48cGF0aCBkPSJNMTUuNDEgMTYuNTlMMTAuODMgMTJsNC41OC00LjU5TDE0IDZsLTYgNiA2IDYgMS40MS0xLjQxeiIvPjxwYXRoIGQ9Ik0wIDBoMjR2MjRIMFYweiIgZmlsbD0ibm9uZSIvPjwvc3ZnPg==)
+    left: 35px
+    transform: rotate(135deg)
   .carousel-arrow-next
-    right: 20px
-    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjI0Ij48cGF0aCBkPSJNOC41OSAxNi41OUwxMy4xNyAxMiA4LjU5IDcuNDEgMTAgNmw2IDYtNiA2LTEuNDEtMS40MXoiLz48cGF0aCBkPSJNMCAwaDI0djI0SDBWMHoiIGZpbGw9Im5vbmUiLz48L3N2Zz4=)
+    transform: rotate(-45deg)
+    right: 35px
   .carousel-arrows-outside
     .carousel-arrow-prev
       left: -60px
