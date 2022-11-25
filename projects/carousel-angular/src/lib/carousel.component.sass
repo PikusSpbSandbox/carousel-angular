@@ -1,122 +1,162 @@
-@import 'variables'
-
 \:host
+  user-select: none
+
   position: relative
-  display: block
+  z-index: 10000
   top: 0
   left: 0
+  transform-origin: top left
+
+  display: block
+
+  box-sizing: border-box
   width: 100%
   height: 100%
-  user-select: none
-  z-index: 10000
-  transform-origin: top left
-  box-sizing: border-box
+
   .carousel-container
+    cursor: grab
     overflow: hidden
     width: 100%
     height: 100%
-    cursor: grab
+
   .carousel-container.carousel-moving
     cursor: grabbing
+
   .carousel-counter
-    text-align: right
     position: absolute
     z-index: 30
-    transition: opacity 200ms
     top: 8px
     right: 24px
-    border-radius: 13px
-    background-color: rgba(23, 37, 68, 0.3)
-    font-size: 11px
-    color: #ffffff
+
     padding: 5px 7px
+
+    font-size: 11px
     line-height: initial
+    color: #fff
+    text-align: right
+
+    background-color: rgb(23 37 68 / 30%)
+    border-radius: 13px
+
+    transition: opacity 200ms
+
   ::ng-deep
     .carousel-cells
-      transition: transform 200ms
+      will-change: transform
+
+      display: block
+
       width: 100%
       height: 100%
-      display: block
-      will-change: transform
+
+      transition: transform 200ms
+
       .carousel-cell.swiper-prev-image
         transform: translate3d(-100%, 0, 0)
+
       .carousel-cell.swiper-next-image
         transform: translate3d(100%, 0, 0)
+
       .carousel-cell
-        width: 100%
-        height: 100%
         position: absolute
         overflow: hidden
+        width: 100%
+        height: 100%
+
         img,
         video
+          position: relative
           width: 100%
           height: 100%
-          position: relative
           object-fit: contain
+
         img.swiper-hide
           display: none
+
         .carousel-play
           position: absolute
-          top: 0
-          left: 0
-          bottom: 0
-          right: 0
           z-index: 1
+          top: 0
+          right: 0
+          bottom: 0
+          left: 0
 
   .carousel-arrow
+    cursor: pointer
+
+    position: absolute
+    z-index: 10
+    top: 50%
+
+    display: inline-block
+
     width: 20px
     height: 20px
     margin-top: -10px
-    transition: opacity 0.1s ease-in-out
+
     opacity: 0
-    position: absolute
-    top: 50%
-    z-index: 10
-    cursor: pointer
-    border: solid rgba(255, 255, 255, 0.6)
+    border: solid rgb(255 255 255 / 60%)
     border-width: 0 4px 4px 0
     border-radius: 2px
-    display: inline-block
+
+    transition: opacity 0.1s ease-in-out
   .carousel-arrow:before // adding dom element to extend area of catching mouse events
+    content: " "
+
     position: absolute
-    content: ' '
+    top: -50px
+    left: -50px
+
     display: inline-block
+
     width: 100px
     height: 100px
-    left: -50px
-    top: -50px
+
     border: 0
+
   .carousel-arrow:hover
     opacity: 0.5
+
   .carousel-arrow-prev
     left: 35px
     transform: rotate(135deg)
+
   .carousel-arrow-next
-    transform: rotate(-45deg)
     right: 35px
+    transform: rotate(-45deg)
+
   .carousel-arrows-outside
     .carousel-arrow-prev
       left: -60px
+
     .carousel-arrow-next
       right: -60px
+
   .carousel-dark-arrows
     .carousel-arrow
       filter: invert(1)
+
   .carousel-arrow-disabled
     display: none
+
   .carousel-dots
     position: absolute
-    left: 0
+    z-index: 10
     right: 0
     bottom: 0
-    z-index: 10
+    left: 0
+
     text-align: center
+
     .carousel-dot
       display: inline-block
-      border: 2px solid #fff
-      border-radius: 100px
-      margin: 4px
+
       width: 8px
       height: 8px
+      margin: 4px
+
+      border: 2px solid #fff
+      border-radius: 100px
+
     .carousel-dot-active
       background-color: #fff

@@ -192,8 +192,8 @@ export class CarouselComponent implements OnDestroy {
         }
     }
 
-    @HostListener('mouseover', ['$event'])
-    onMouseOver() {
+    @HostListener('mousemove', ['$event']) // workaround to fix autoplay when mouse is over carousel
+    onMouseMove() {
         if (this.autoplay && this.pauseOnHover) {
           this.carouselProperties.autoplayIsPossible = false;
           this.carousel.stopAutoplay();
