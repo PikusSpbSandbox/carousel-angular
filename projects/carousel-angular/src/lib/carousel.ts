@@ -12,7 +12,7 @@ export class Carousel {
     isContainerLocked: boolean = true;
     alignCells: "left" | "center" = "left";
     initialContainerPosition: number = 0;
-    autoplayId: any;
+    autoplayId: any = null;
     containerPullLimit = 100;
 
     get cellLength() {
@@ -169,16 +169,19 @@ export class Carousel {
     }
 
     autoplay() {
-        this.autoplayId = setInterval(() => {
-          if (this.autoplayIsPossible) {
-            this.next();
-          }
-        }, this.properties.autoplayInterval);
+        if (this.autoplayId === null) {
+          this.autoplayId = setInterval(() => {
+            if (this.autoplayIsPossible) {
+              this.next();
+            }
+          }, this.properties.autoplayInterval);
+        }
     }
 
     stopAutoplay() {
-        if (this.autoplayId) {
+        if (this.autoplayId != null) {
             clearInterval(this.autoplayId);
+            this.autoplayId = null;
         }
     }
 }

@@ -192,16 +192,16 @@ export class CarouselComponent implements OnDestroy {
         }
     }
 
-    @HostListener('mousemove', ['$event']) // workaround to fix autoplay when mouse is over carousel
-    onMouseMove() {
-        if (this.autoplay && this.pauseOnHover) {
+    @HostListener('mouseenter', ['$event'])
+    onMouseEnter() {
+      if (this.autoplay && this.pauseOnHover) {
           this.carouselProperties.autoplayIsPossible = false;
           this.carousel.stopAutoplay();
         }
     }
 
-    @HostListener('mouseout', ['$event'])
-    onMouseOut() {
+    @HostListener('mouseleave', ['$event'])
+    onMouseLeave() {
         if (this.autoplay && this.pauseOnHover) {
           this.carouselProperties.autoplayIsPossible = true;
           this.carousel.autoplay();
@@ -254,7 +254,8 @@ export class CarouselComponent implements OnDestroy {
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes.width || changes.height || changes.images) {
+        const isFirstChange = Object.values(changes).some(change => change.isFirstChange());
+        if (!isFirstChange && (changes.width || changes.height || changes.images)) {
             this.setDimensions();
             this.initCarousel();
             this.carousel.lineUpCells();
@@ -293,6 +294,10 @@ export class CarouselComponent implements OnDestroy {
         this.cells = new Cells(this.carouselProperties, this.utils);
         this.container = new Container(this.carouselProperties, this.utils, this.cells);
         this.slide = new Slide(this.carouselProperties, this.utils, this.cells, this.container);
+
+        if (this.autoplay && this.carousel) {
+          this.carousel.stopAutoplay();
+        }
         this.carousel = new Carousel(this.carouselProperties, this.utils, this.cells, this.container, this.slide);
 
         if (this.autoplay) {
