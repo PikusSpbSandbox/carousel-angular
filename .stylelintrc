@@ -1,4 +1,8 @@
 {
-  "extends": ["stylelint-config-prettier", "stylelint-config-standard", "stylelint-config-clean-order"],
+  "extends": [
+    "stylelint-config-prettier",
+    "stylelint-config-standard",
+    "stylelint-config-clean-order"
+  ],
   "customSyntax": "postcss-sass"
 }
