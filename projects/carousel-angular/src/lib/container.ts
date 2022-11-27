@@ -23,10 +23,6 @@ export class Container {
         return this.utils.overflowCellsLimit;
     }
 
-    get images() {
-        return this.carouselProperties.images;
-    }
-
     get element() {
         return this.carouselProperties.cellsElement;
     }
@@ -52,23 +48,7 @@ export class Container {
     }
 
     get cellLength() {
-        if (this.images) {
-            return this.images.length;
-        } else {
-            return this.cells.cellLength;
-        }
-    }
-
-    get cellLengthInLightDOMMode() {
-        if (this.images) {
-            let cellLength = this.numberOfVisibleCells + this.overflowCellsLimit * 2;
-            if (cellLength > this.images.length) {
-                cellLength = this.images.length;
-            }
-            return cellLength;
-        } else {
-            return this.cellLength;
-        }
+        return this.cells.cellLength;
     }
 
     get tooFewCells() {
@@ -81,10 +61,6 @@ export class Container {
 
     get margin() {
         return this.carouselProperties.margin;
-    }
-
-    get isLightDOM() {
-        return this.carouselProperties.lightDOM || this.carouselProperties.loop;
     }
 
     constructor(private carouselProperties: CarouselProperties,
@@ -293,14 +269,9 @@ export class Container {
     }
 
     getEndPosition() {
-        if (this.isLightDOM) {
-            let imagesInContainer = this.cells.imageUtils.getImages();
-            return -(imagesInContainer.length * this.fullCellWidth - this.visibleWidth - this.margin);
-        } else {
-            const width = this.getWidth();
-            const visibleWidth = this.element!.parentElement!.clientWidth;
-            return visibleWidth - width;
-        }
+        const width = this.getWidth();
+        const visibleWidth = this.element!.parentElement!.clientWidth;
+        return visibleWidth - width;
     }
 
     transformPositionX(value:number, duration = this.transitionDuration) {
@@ -313,14 +284,7 @@ export class Container {
     }
 
     getWidth() {
-        let width = this.cellLengthInLightDOMMode * this.fullCellWidth;
-        let totalImageWidth = this.cellLength * this.fullCellWidth;
-
-        if (totalImageWidth < width) {
-            width = totalImageWidth;
-        }
-
-        return this.isLightDOM ? width : totalImageWidth;
+        return this.cellLength * this.fullCellWidth;
     }
 
     setWidth() {

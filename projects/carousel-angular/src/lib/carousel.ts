@@ -19,46 +19,12 @@ export class Carousel {
         return this.cells.cellLength;
     }
 
-    get cellLengthInLightDOMMode() {
-        if (this.images) {
-            let cellLength = this.numberOfVisibleCells + this.overflowCellsLimit * 2;
-            if (cellLength > this.images.length) {
-                cellLength = this.images.length;
-            }
-            return cellLength;
-        } else {
-            return this.cellLength;
-        }
-    }
-
     get lastCellIndex() {
-        return this.images.length ? (this.images.length - 1) : (this.cells.cellLength - 1);
+        return this.cells.cellLength - 1;
     }
 
     get overflowCellsLimit() {
         return this.utils.overflowCellsLimit;
-    }
-
-    get cellLimit() {
-        if (this.isLightDOM) {
-            let cellLimit = this.numberOfVisibleCells + this.overflowCellsLimit * 2;
-
-            if (cellLimit < this.numberOfVisibleCells) {
-                cellLimit = this.numberOfVisibleCells;
-            }
-
-            return cellLimit;
-        } else {
-            return this.properties.images.length;
-        }
-    }
-
-    get isLightDOM() {
-        return this.properties.lightDOM || this.properties.loop;
-    }
-
-    get images() {
-        return this.properties.images;
     }
 
     get autoplayIsPossible() {
@@ -87,10 +53,6 @@ export class Carousel {
 
     get numberOfVisibleCells() {
         return this.utils.numberOfVisibleCells;
-    }
-
-    get lapCounter() {
-        return Math.floor(this.slide.counter / this.cellLengthInLightDOMMode);
     }
 
     get slideCounter() {

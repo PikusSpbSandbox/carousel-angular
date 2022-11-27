@@ -23,7 +23,6 @@ export class CarouselComponent implements OnDestroy {
     cells:any;
     slide:any;
     _id!: string;
-    _images!: Images;
     touches: any;
     landscapeMode: any;
     minTimeout = 30;
@@ -31,8 +30,6 @@ export class CarouselComponent implements OnDestroy {
     _isCounter: boolean = false;
     _width!: number;
     _cellWidth: number | '100%' = 200;
-    _loop: boolean = false;
-    _lightDOM: boolean = false;
     isMoving: boolean = false;
     isNgContent: boolean = false;
     cellLength!: number;
@@ -70,14 +67,7 @@ export class CarouselComponent implements OnDestroy {
     }
 
     get counter() {
-        let counter;
-
-        if (this.loop) {
-            counter = this.slideCounter % this.cellLength;
-        } else {
-            counter = this.slideCounter;
-        }
-
+        let counter = this.slideCounter;
         return counter + 1 + this.counterSeparator + this.cellLength;
     }
 
@@ -133,14 +123,6 @@ export class CarouselComponent implements OnDestroy {
     @Input() arrowsOutside: boolean = false;
     @Input() arrowsTheme: 'light' | 'dark' = 'light';
 
-    @Input()
-    set images(images: Images & any) {
-        this._images = images;
-    }
-    get images() {
-        return this._images;
-    }
-
     @Input('cellWidth') set cellWidth(value: number | '100%') {
         if (value) {
             this._cellWidth = value;
@@ -150,34 +132,6 @@ export class CarouselComponent implements OnDestroy {
     @Input('counter') set isCounter(value: boolean) {
         if (value) {
             this._isCounter = value;
-        }
-    }
-
-    @Input('loop') set loop(value: boolean) {
-        if (value) {
-            this._loop = value;
-        }
-    }
-
-    get loop() {
-        if (this.images) {
-      return this._loop;
-        } else {
-            return false;
-        }
-    }
-
-    @Input('lightDOM') set lightDOM(value: boolean) {
-        if (value) {
-      this._lightDOM = value;
-        }
-    }
-
-    get lightDOM() {
-        if (this.images) {
-            return this._lightDOM;
-        } else {
-            return false;
         }
     }
 
@@ -255,7 +209,7 @@ export class CarouselComponent implements OnDestroy {
 
     ngOnChanges(changes: SimpleChanges) {
         const isFirstChange = Object.values(changes).some(change => change.isFirstChange());
-        if (!isFirstChange && (changes.width || changes.height || changes.images)) {
+        if (!isFirstChange && (changes.width || changes.height)) {
             this.setDimensions();
             this.initCarousel();
             this.carousel.lineUpCells();
@@ -273,9 +227,7 @@ export class CarouselComponent implements OnDestroy {
             id: this.id,
             cellsElement: this.elementRef.nativeElement.querySelector('.carousel-cells'),
             hostElement: this.elementRef.nativeElement,
-            images: this.images,
             cellWidth: this.getCellWidth(),
-            loop: this.loop,
             autoplayInterval: this.autoplayInterval,
             autoplayIsPossible: true,
             overflowCellsLimit: this.overflowCellsLimit,
@@ -286,8 +238,7 @@ export class CarouselComponent implements OnDestroy {
             transitionTimingFunction: this.transitionTimingFunction,
             videoProperties: this.videoProperties,
             eventHandler: this.events,
-            freeScroll: this.freeScroll,
-            lightDOM: this.lightDOM
+            freeScroll: this.freeScroll
         };
 
         this.utils = new Utils(this.carouselProperties);
@@ -375,12 +326,7 @@ export class CarouselComponent implements OnDestroy {
         const i = nodes.indexOf(cellElement);
         const cellIndex = nodes.indexOf(cellElement);
 
-        if (this.images) {
-            //outboundEvent.fileIndex = this.carousel.getFileIndex(i);
-            //outboundEvent.file = this.carousel.getFile(cellIndex);
-        } else {
-            outboundEvent.cellIndex = cellIndex;
-        }
+        outboundEvent.cellIndex = cellIndex;
     }
 
     handleTransitionendCellContainer(event:any) {
@@ -428,10 +374,6 @@ export class CarouselComponent implements OnDestroy {
     }
 
     getCellLength() {
-        if (this.images) {
-            return this.images.length;
-        } else {
-            return this.cellsElement.children.length;
-        }
+        return this.cellsElement.children.length;
     }
 }

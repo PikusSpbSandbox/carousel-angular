@@ -2,9 +2,7 @@ export interface Properties {
     id: number;
     cellsElement: HTMLElement;
     hostElement: HTMLElement;
-    images: any;
     cellWidth: number;
-    loop: boolean;
     autoplayInterval: number;
     autoplayIsPossible: boolean;
     overflowCellsLimit: number;
@@ -16,7 +14,6 @@ export interface Properties {
     videoProperties: any;
     eventHandler ? : any;
     freeScroll: boolean;
-    lightDOM: boolean;
 }
 
 export interface Images {

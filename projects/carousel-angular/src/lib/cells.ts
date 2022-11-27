@@ -33,10 +33,6 @@ export class Cells {
     counter: number = 0;
     imageUtils;
 
-    get images() {
-        return this.carouselProperties.images;
-    }
-
     get cellLength() {
         return this.cells ? this.cells.length : 0;
     }
@@ -46,16 +42,7 @@ export class Cells {
     }
 
     get cellLengthInLightDOMMode() {
-        if (this.images) {
-            let cellLength = this.numberOfVisibleCells + this.overflowCellsLimit * 2;
-
-            if (cellLength > this.images.length) {
-                cellLength = this.images.length;
-            }
-            return cellLength;
-        } else {
-            return this.cellLength;
-        }
+        return this.cellLength;
     }
 
     get numberOfVisibleCells() {
@@ -64,10 +51,6 @@ export class Cells {
 
     get overflowCellsLimit() {
         return this.utils.overflowCellsLimit;
-    }
-
-    get isLightDOM() {
-        return this.carouselProperties.lightDOM || this.carouselProperties.loop;
     }
 
     constructor(
@@ -91,14 +74,6 @@ export class Cells {
             let positionX = this.getCellPositionInContainer(i);
             (cell as HTMLElement).style.transform = 'translateX(' + positionX + 'px)';
             (cell as HTMLElement).style.width = this.carouselProperties.cellWidth + 'px';
-
-            if (this.getImage(i)) {
-                this.imageUtils.cellStack.push({
-                    index: i,
-                    positionX,
-                    img: this.getImage(i)!['image']
-                });
-            }
         }
     }
 
@@ -108,70 +83,7 @@ export class Cells {
     }
 
     getCellPositionInContainer(cellIndexInDOMTree: number) {
-        let positionIndex = this.getCellIndexInContainer(cellIndexInDOMTree);
-        return positionIndex * this.fullCellWidth;
-    }
-
-    getCellIndexInContainer(cellIndexInDOMTree: number) {
-        let positionIndex;
-
-        if (!this.isLightDOM) {
-            return cellIndexInDOMTree;
-        }
-
-        let cellLength = this.cellLengthInLightDOMMode;
-        let counter = this.counter - this.overflowCellsLimit;
-
-        if (counter > cellLength) {
-            counter = counter % cellLength;
-        }
-
-        if (counter < 0) {
-            return cellIndexInDOMTree;
-        } else {
-            positionIndex = cellIndexInDOMTree - counter;
-            if (positionIndex < 0) {
-                positionIndex = cellLength + positionIndex;
-            }
-        }
-
-        return positionIndex;
-    }
-
-    getImage(cellIndex: number) {
-        if (!this.images) {
-            return;
-        }
-
-        let imageIndex = this.getImageIndex(cellIndex);
-        let file = this.images[imageIndex];
-
-        if (file && !file.type) {
-            file.type = 'image';
-        }
-
-        return {
-            image: this.images[imageIndex],
-            imageIndex
-        };
-    }
-
-    getImageIndex(cellIndexInDOMTree: number) {
-        const positionIndex = this.getCellIndexInContainer(cellIndexInDOMTree);
-        let imageIndex;
-
-        if (this.counter > this.overflowCellsLimit) {
-            let cellLimitOverflow = this.counter - this.overflowCellsLimit;
-            imageIndex = positionIndex + cellLimitOverflow;
-
-            if (this.images && this.carouselProperties.loop) {
-                imageIndex = imageIndex % this.images.length;
-            }
-        } else {
-            imageIndex = cellIndexInDOMTree;
-        }
-
-        return imageIndex;
+        return cellIndexInDOMTree * this.fullCellWidth;
     }
 
     setCounter(value: number) {

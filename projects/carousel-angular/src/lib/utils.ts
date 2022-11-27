@@ -1,31 +1,12 @@
 import {Properties as CarouselProperties} from './interfaces';
 
 export class Utils {
-
-    get images() {
-        return this.carouselProperties.images;
-    }
-
     get margin() {
         return this.carouselProperties.margin;
     }
 
     get overflowCellsLimit() {
-        if (this.images && this.isImagesLessCellLimit) {
-            let overflowCellsLimit = Math.floor((this.images.length - this.numberOfVisibleCells) / 2);
-
-            if (overflowCellsLimit < 0) {
-                overflowCellsLimit = 0;
-            }
-            
-            return overflowCellsLimit;
-        } else {
-            return this.carouselProperties.overflowCellsLimit;
-        }
-    }
-
-    get isImagesLessCellLimit() {
-        return this.carouselProperties.overflowCellsLimit * 2 + this.numberOfVisibleCells > this.images.length;
+        return this.carouselProperties.overflowCellsLimit;
     }
 
     get numberOfVisibleCells() {

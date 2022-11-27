@@ -51,25 +51,9 @@ export class Slide {
         return this.utils.overflowCellsLimit;
     }
 
-    get images() {
-        return this.carouselProperties.images;
-    }
-
     /* Number of cell elements in the DUM tree */
     get cellLength() {
-        if (this.isLightDOM) {
-            return this.cells.cellLengthInLightDOMMode;
-        } else {
-            if (this.images) {
-                return this.images.length;
-            } else {
-                return this.cells.cellLength;
-            }
-        }
-    }
-
-    get isLightDOM() {
-        return this.carouselProperties.lightDOM || this.carouselProperties.loop;
+        return this.cells.cellLength;
     }
 
     constructor(private carouselProperties: CarouselProperties,
@@ -114,10 +98,6 @@ export class Slide {
     handleTransitionend() {
         this.setCounter();
         this.isSlideInProgress = false;
-
-        if (this.isLightDOM) {
-            this.alignContainerFast();
-        }
     }
 
     handleSlide(customSlideLength: number | undefined = undefined) {
@@ -240,10 +220,6 @@ export class Slide {
         let correction = 0;
         let isLastSlide = this.isLastSlide(counter);
 
-        if (this.carouselProperties.loop) {
-            return 0;
-        }
-
         if (this.isSlideLengthLimited || isLastSlide) {
             let cellsWidth = this.cells.cellLengthInLightDOMMode * this.fullCellWidth;
 
@@ -288,13 +264,9 @@ export class Slide {
 
     isSlidesEnd(counter: number) {
         let margin = this.visibleCellsOverflowContainer ? 1 : 0;
-        let imageLength = this.images ? this.images.length : this.cells.cellLength;
+        let imageLength = this.cells.cellLength;
 
-        if (this.carouselProperties.loop) {
-            return false;
-        } else {
-            return (imageLength - counter + margin) < this.numberOfVisibleCells;
-        }
+        return (imageLength - counter + margin) < this.numberOfVisibleCells;
     }
 
     isLastSlide(counter: number) {
@@ -323,15 +295,7 @@ export class Slide {
             correction = 0;
         }
 
-        if (this.isLightDOM && this.isLightDOMMode(_counter) ||
-            this.isLightDOM && this.ifLeftDOMModeAtEnd(_counter)) {
-
-            let initialPosition = this.getPositionWithoutCorrection(this.initialPositionX);
-            let counterDifference = _counter - this.counter;
-            position = initialPosition - ((counterDifference * this.fullCellWidth) - correction);
-        } else {
-            position = -((_counter * this.fullCellWidth) - correction);
-        }
+        position = -((_counter * this.fullCellWidth) - correction);
 
         position = this.provideSafePosition(position);
 
@@ -377,13 +341,7 @@ export class Slide {
     }
 
     alignContainerFast() {
-        if (this.isLightDOMMode(this.counter)) {
-            let positionX = this.fixedContainerPosition;
-            this.container.transformPositionX(positionX, 0);
-
-            this.cells.setCounter(this.counter);
-            this.cells.lineUp();
-        } else if (this.ifLeftDOMModeToBeginning(this.counter)) {
+      if (this.ifLeftDOMModeToBeginning(this.counter)) {
             /* If we have already exited the light DOM mode but
              * the cells are still out of place
              */
@@ -394,78 +352,7 @@ export class Slide {
                 this.cells.setCounter(this.counter);
                 this.cells.lineUp();
             }
-        } else if (this.ifLeftDOMModeAtEnd(this.counter)) {
-            let containerPositionX = this.container.getCurrentPositionX();
-            let containerWidth = this.container.getWidth();
-            this.visibleWidth;
-
-            if (this.isLastSlide(this.counter) &&
-                containerWidth + containerPositionX >= this.visibleWidth) {
-                return;
-            }
-
-            let correction = this.getPositionCorrection(this.counter);
-
-            if (correction !== 0) {
-                correction = correction + this.fullCellWidth
-            }
-
-            if (this.direction === 'right') {
-                correction = 0;
-            }
-
-            let positionX = this.fixedContainerPosition + correction;
-
-            this.container.transformPositionX(positionX, 0);
-            this.cells.setCounter(this.counter);
-            this.cells.lineUp();
         }
-    }
-
-    isLightDOMMode(counter: number) {
-        let flag;
-        let remainderOfCells = this.images.length - this.overflowCellsLimit - this.numberOfVisibleCells;
-
-        if (!this.isLightDOM) {
-            return false;
-        }
-
-        if (counter > this.overflowCellsLimit && this.direction === "left" &&
-            counter <= remainderOfCells) {
-            flag = true;
-        }
-
-        if (counter >= this.overflowCellsLimit && this.direction === "right" &&
-            counter < remainderOfCells) {
-            flag = true;
-        }
-
-        if (this.counter > this.overflowCellsLimit && this.direction === "left" &&
-            this.counter <= remainderOfCells) {
-            flag = true;
-        }
-
-        if (this.counter >= this.overflowCellsLimit && this.direction === "right" &&
-            this.counter < remainderOfCells) {
-            flag = true;
-        }
-
-        return flag;
-    }
-
-    ifLeftDOMModeAtEnd(counter: number) {
-        let flag;
-        let remainderOfCells = this.images.length - this.overflowCellsLimit - this.numberOfVisibleCells;
-
-        if (counter >= remainderOfCells) {
-            flag = true;
-        }
-
-        if (this.counter >= remainderOfCells) {
-            flag = true;
-        }
-
-        return flag;
     }
 
     ifLeftDOMModeToBeginning(counter: number) {
