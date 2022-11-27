@@ -1,6 +1,6 @@
 {
   "name": "carousel-angular",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "A simple carousel component for Angular 14+ based on 'angular-responsive-carousel' by Ivy Laboratory http://ivylab.space",
   "repository": {
     "type": "git",
