@@ -6,12 +6,15 @@ Live [demo](https://pikus.spb.ru/code/carousel-angular-demo).
 
 ## About
 This is a fork version of [ivylaboratory/angular-carousel](https://github.com/ivylaboratory/angular-carousel) with the following changes:
-- Navigation arrows transparent design
+- Navigation arrows new design
 - Bug fixes:
-  - Fix scrolling to previous item scrolled to start only
+  - Fix scrolling to previous item scrolls to start only
   - Fix when drag & drop event starts on inner content (drag & drop is now blocked)
   - Fix autoplay stop when hovering carousel
+- Removed 'images' and 'loop' functionality to reduce bundle size ('loop' never worked before without 'images')
 - Changed default settings
+- Performed .sass and .ts linting, overall code cleanup (removing unused members) and modernization
+- Bundle size is reduced to 529 kB unpacked against 814 kB before
 - Dependency versions upgrade to fit Angular 14
 
 ## Installation
@@ -23,9 +26,9 @@ Import module:
 ```ts
   import {IvyCarouselModule} from 'carousel-angular';
 
-@NgModule({
-  imports: [IvyCarouselModule]
-})
+  @NgModule({
+      imports: [IvyCarouselModule]
+  })
 ```
 
 ## Usage
